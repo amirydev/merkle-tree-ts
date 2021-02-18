@@ -2,7 +2,7 @@ import { MerkleTree, Proof } from './merkle-tree';
 import hash from 'crypto-js/sha3';
 import enc from 'crypto-js/enc-base64';
 
-describe('merkle-tree', () => {
+describe('MerkleTree', () => {
     describe('hash', () => {
         it('should create a merkle root', () => {
             const mt = new MerkleTree(hash, enc, ['aaa', 'bbb', 'ccc']);
@@ -53,7 +53,6 @@ describe('merkle-tree', () => {
 
         it('should verify non-valid proof', () => {
             const mt = new MerkleTree(hash, enc, ['aaa', 'bbb', 'ccc']);
-            mt.hash();
             const proof: Proof = {
                 path: [
                     { dir: 0, data: 'xxx' },
