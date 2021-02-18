@@ -1,0 +1,53 @@
+template: true
+valuesFilePath: ./pipelines.values.yml
+
+resources:
+  - name: my_repo
+    type: GitRepo
+    configuration:
+      gitProvider: {{ .Values.myRepo.gitProvider }}
+      path: {{ .Values.myRepo.path }}
+      branches:
+        include: main
+
+  - name: npm_buildinfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: arti
+
+pipelines:
+  - name: npm_pipeline
+    steps:
+      - name: npm_build_step
+        type: NpmBuild
+        configuration:
+          repositoryName: npm-local
+          sourceLocation: . 
+          integrations:
+            - name:  arti
+          inputResources:
+            - name: my_repo
+      - name: npm_test_step
+        type: Bash
+        configuration:
+          repositoryName: npm-local
+          sourceLocation: . 
+          integrations:
+            - name:  arti
+          inputResources:
+            - name: my_repo
+        execution:
+          onExecute:
+            - echo "running tests.."
+            - npm run test
+      - name: npm_publish_step
+        type: NpmPublish
+        configuration:
+          repositoryName: npm-local
+          autoPublishBuildInfo: true
+          integrations:
+            - name: arti
+          inputSteps:
+            - name: npm_build_step
+          outputResources:
+            - name: npm_buildinfo
