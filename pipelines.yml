@@ -21,7 +21,7 @@ pipelines:
       - name: npm_build_step
         type: NpmBuild
         configuration:
-          repositoryName: npm-local
+          repositoryName: npm-virtual
           sourceLocation: . 
           integrations:
             - name:  arti
@@ -30,7 +30,7 @@ pipelines:
       - name: npm_test_step
         type: Bash
         configuration:
-          repositoryName: npm-local
+          repositoryName: npm-virtual
           sourceLocation: . 
           integrations:
             - name:  arti
@@ -43,7 +43,7 @@ pipelines:
       - name: npm_publish_step
         type: NpmPublish
         configuration:
-          repositoryName: npm-local
+          repositoryName: npm-virtual
           autoPublishBuildInfo: true
           integrations:
             - name: arti
