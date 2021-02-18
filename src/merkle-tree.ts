@@ -30,11 +30,13 @@ export class MerkleTree {
     constructor(
         private readonly hasher: Hasher,
         private readonly encoder: Encoder,
-        private leaves: string[],
+        private leaves: string[] = [],
     ) {}
 
-    addLeaf(leaf: string): MerkleTree {
-        this.leaves.push(leaf);
+    addLeaves(...leaves: string[]): MerkleTree {
+        for (const leaf of leaves) {
+            this.leaves.push(leaf);
+        }
         return this;
     }
 
@@ -78,9 +80,12 @@ export class MerkleTree {
                         left.data + right.data,
                     );
                     const node = { data, left, right };
-                    !!iterator && iterator(node, h);
+                    !!iterator && iterator(node, h + 1);
                     level.push(node);
                 }
+            }
+            if (level.length % 2) {
+                level.push(level[level.length - 1]);
             }
             nodes = [...level];
         }
@@ -100,28 +105,35 @@ export class MerkleTree {
             }
             levels[height].push(current);
         });
+        const proofData = levels[0][i].data;
         const proof: Proof = {
             path: [],
-            data: levels[0][i].data,
+            data: proofData,
         };
         const h = this.height();
-        const data = hash(this.hasher, this.encoder, this.leaves[i]);
+        let data = proofData;
         for (let j = 0; j < h; j++) {
-            let i2 = i + 1;
+            let iNeighbor = i + 1;
             if (i % 2 !== 0) {
-                i2 = i - 1;
+                iNeighbor = i - 1;
             }
-            proof.path.push({ dir: i2 % 2 ? 1 : 0, data: levels[j][i2].data });
+            proof.path.push({
+                dir: i % 2 === 0 ? 1 : 0,
+                data: levels[j][iNeighbor].data,
+            });
             const level = levels[j + 1];
             if (!level) {
                 break;
             }
+            // decide what is the value of 'i' in the next level
             for (let iLevel = 0; iLevel < level.length; iLevel++) {
                 if (
                     level[iLevel].right?.data === data ||
                     level[iLevel].left?.data === data
                 ) {
                     i = iLevel;
+                    data = level[iLevel].data;
+                    break;
                 }
             }
         }
