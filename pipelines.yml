@@ -30,10 +30,7 @@ pipelines:
       - name: npm_test_step
         type: Bash
         configuration:
-          repositoryName: npm-virtual
           sourceLocation: . 
-          integrations:
-            - name:  arti
           inputResources:
             - name: my_repo
         execution:
