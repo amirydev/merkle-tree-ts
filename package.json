@@ -3,12 +3,11 @@
   "version": "0.0.2",
   "description": "core library",
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
   "scripts": {
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean",
     "clean": "rimraf lib",
-    "build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json",
+    "build": "tsc -p tsconfig.cjs.json",
     "lint": "eslint . --ext .ts",
     "format": "run-script-os",
     "format:win32": "prettier --config .prettierrc \"./src/**/*.ts\" --write",
