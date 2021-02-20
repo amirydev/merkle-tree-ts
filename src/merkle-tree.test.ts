@@ -3,7 +3,7 @@ import hasher from 'crypto-js/sha3';
 import encoder from 'crypto-js/enc-base64';
 
 describe('MerkleTree', () => {
-    describe('hash', () => {
+    describe('rootHash', () => {
         it('should create a merkle root', () => {
             const mt = new MerkleTree(hasher, encoder, ['aaa', 'bbb', 'ccc']);
             const root = mt.rootHash();
@@ -12,10 +12,10 @@ describe('MerkleTree', () => {
             );
         });
         it('should handle zero leaves', () => {
-            const mt = new MerkleTree(hasher, encoder); 
-            const root = mt.rootHash(); 
+            const mt = new MerkleTree(hasher, encoder);
+            const root = mt.rootHash();
             expect(root).toEqual('');
-        })
+        });
     });
 
     describe('height', () => {

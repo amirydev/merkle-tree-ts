@@ -25,7 +25,7 @@ import hasher from 'crypto-js/sha3';
 import encoder from 'crypto-js/enc-base64';
 
 const mt = new MerkleTree(hasher, encoder, ['aaa', 'bbb', 'ccc']);
-const root = mt.hash();
+const root = mt.rootHash();
 console.log(root);
 // ScIuiTF4x8dp9wAGhKzmqVeNQHqXV/Gy4SaCszW/YPOGBJ3tfmfVBbG0bk16OfS9aPxNLk2s5V4lr5/+aFfAWg==
 

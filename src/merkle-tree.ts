@@ -58,7 +58,7 @@ export class MerkleTree {
         this.root = this.leafNodesToRoot(nodes, iterator);
 
         return this.root.data;
-    }  
+    }
 
     // creates a proof for the given leaf
     public getProof(i: number): Proof {
@@ -150,7 +150,10 @@ export class MerkleTree {
     }
 
     // takes a list of leaf nodes and turns it into root hash
-    private leafNodesToRoot(nodes: MerkleNode[], iterator?: nodeIterator): MerkleNode {
+    private leafNodesToRoot(
+        nodes: MerkleNode[],
+        iterator?: nodeIterator,
+    ): MerkleNode {
         const n = nodes.length;
         for (let h = 0; h < n / 2; h++) {
             const level: MerkleNode[] = [];
@@ -174,7 +177,7 @@ export class MerkleTree {
             nodes = [...level];
         }
         return nodes[0];
-    }  
+    }
 }
 
 const hash = (hasher: Hasher, encoder: Encoder, data: string): string => {
