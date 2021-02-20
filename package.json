@@ -5,8 +5,9 @@
   "main": "./lib/cjs/index.js",
   "scripts": {
     "prepublishOnly": "npm run build",
+    "prepare": "npm run build",
     "prebuild": "npm run clean",
-    "clean": "rimraf lib",
+    "clean": "rimraf lib && rimraf coverage",
     "build": "tsc -p tsconfig.cjs.json",
     "lint": "eslint . --ext .ts",
     "format": "run-script-os",
