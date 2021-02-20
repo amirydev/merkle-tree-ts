@@ -29,9 +29,10 @@ const root = mt.rootHash();
 console.log(root);
 // ScIuiTF4x8dp9wAGhKzmqVeNQHqXV/Gy4SaCszW/YPOGBJ3tfmfVBbG0bk16OfS9aPxNLk2s5V4lr5/+aFfAWg==
 
-const proof = mt.getProof(1);
+let proof = mt.getProof(0);
 console.log(verify(hasher, encoder, proof, root));
 // true
+proof = mt.getProof(1);
 console.log(proof);
 // {
 //   path: [
