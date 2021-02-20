@@ -1,12 +1,17 @@
 import { lib } from 'crypto-js';
 
+// custom hash function to be used
+// based on crypto-js
 export type Hasher = (message: lib.WordArray | string) => lib.WordArray;
 
+// custom encoding to stringify the hash output
+// based on crypto-js
 export interface Encoder {
     stringify(wordArray: lib.WordArray): string;
     parse(str: string): lib.WordArray;
 }
 
+// represents a single node in the merkle tree
 export interface MerkleNode {
     left?: MerkleNode;
     right?: MerkleNode;
@@ -14,16 +19,20 @@ export interface MerkleNode {
     height?: number;
 }
 
+// represents a proof to validate existence of a specific leaf
 export interface Proof {
     path: MerkleTreePath[];
     data: string;
 }
 
+// represents a path of some merkle proof
 export interface MerkleTreePath {
     dir: number;
     data: string;
 }
 
+// class that represents a MerkleTree
+// contains methods for creating root hash, proofs and verification
 export class MerkleTree {
     root: MerkleNode | undefined;
 
@@ -48,8 +57,8 @@ export class MerkleTree {
         return n / 2;
     }
 
-    // creates a merkle tree root hash
-    // starting from leaves (bottom up)
+    // creates a merkle tree root hash.
+    // starting from leaves and builds it bottom up
     public rootHash(iterator?: nodeIterator): string {
         const nodes = this.getLeafNodes(iterator);
         if (nodes.length === 0) {
@@ -184,6 +193,7 @@ const hash = (hasher: Hasher, encoder: Encoder, data: string): string => {
     return hasher(data).toString(encoder);
 };
 
+// verifies the given proof with the provided hasher and encoder
 export const verify = (
     hasher: Hasher,
     encoder: Encoder,
@@ -195,8 +205,10 @@ export const verify = (
     return proofRoot === root;
 };
 
+// iterator for looping on nodes
 export type nodeIterator = (current: MerkleNode, height?: number) => void;
 
+// creates a root hash from the given proof
 const proofToRoot = (
     hasher: Hasher,
     encoder: Encoder,
@@ -223,7 +235,3 @@ const proofToRoot = (
         data: hash(hasher, encoder, current),
     });
 };
-
-// const buildPath = (): MerkleTreePath => {
-
-// }
