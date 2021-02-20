@@ -2,9 +2,9 @@
 
 **NOTE: WIP**
 
-A library for working with merkle trees, including root hash calculation, proof generation and verification.
+A simple typescript module for working with merkle trees, including root hash calculation, proof generation and verification.
 
-The hash and encoding interfaces are based on [crypto-js](https://github.com/brix/crypto-js) for a custom tree.
+Multiple hash functions and encoding are supported because the interfaces are based on [crypto-js](https://github.com/brix/crypto-js).
 
 ## Install
 
@@ -14,7 +14,7 @@ The hash and encoding interfaces are based on [crypto-js](https://github.com/bri
 npm i merkle-tree-ts
 ```
 
-From github > `npm i https://github.com/amirylm/merkle-tree`
+From github: `npm i https://github.com/amirylm/merkle-tree`
 
 ## Usage
 
@@ -50,4 +50,20 @@ console.log(proof);
 //   data: 'X+5VKciDopF2eZsOzhi6fdj7xX5oStEfbsls2SM7MwEEkjFtb1mKpCQP5SFeuXZfiwVNz7Iutm8Mz3yUw07VLQ=='
 // }
 
+```
+
+## Dev
+
+The code is located at `./src/**/*.ts` and the corresponding tests at `./src/**/*.test.ts`.
+
+The following scripts will be helpful during development:
+
+```bash
+npm run format
+npm run lint
+npm run test
+# tests with coverage
+npm run test:cov
+# tests with live reload
+npm run test:dev
 ```
