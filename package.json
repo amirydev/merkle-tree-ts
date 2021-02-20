@@ -1,6 +1,6 @@
 {
   "name": "merkle-tree-ts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "core library",
   "main": "./lib/cjs/index.js",
   "scripts": {
