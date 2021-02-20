@@ -1,4 +1,4 @@
-# merkle-tree
+# merkle-tree-ts
 
 **NOTE: WIP**
 
