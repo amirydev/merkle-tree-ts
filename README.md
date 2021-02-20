@@ -31,9 +31,6 @@ const root = mt.rootHash();
 console.log(root);
 // ScIuiTF4x8dp9wAGhKzmqVeNQHqXV/Gy4SaCszW/YPOGBJ3tfmfVBbG0bk16OfS9aPxNLk2s5V4lr5/+aFfAWg==
 
-let proof = mt.getProof(0);
-console.log(verify(hasher, encoder, proof, root));
-// true
 proof = mt.getProof(1);
 console.log(proof);
 // {
@@ -49,6 +46,13 @@ console.log(proof);
 //   ],
 //   data: 'X+5VKciDopF2eZsOzhi6fdj7xX5oStEfbsls2SM7MwEEkjFtb1mKpCQP5SFeuXZfiwVNz7Iutm8Mz3yUw07VLQ=='
 // }
+console.log(mt.verify(proof));
+// true
+
+let proof = mt.getProof(0);
+// using verify w/o a MerkleTree instance (i.e. on the verifier side)
+console.log(verify(hasher, encoder, proof, root));
+// true
 
 ```
 
