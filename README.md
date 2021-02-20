@@ -8,11 +8,13 @@ The hash and encoding interfaces are based on [crypto-js](https://github.com/bri
 
 ## Install
 
-**will be available soon...**
+**will be available in npm soon**
 
 ```bash
 npm i merkle-tree-ts
 ```
+
+From github > `npm i https://github.com/amirylm/merkle-tree`
 
 ## Usage
 
