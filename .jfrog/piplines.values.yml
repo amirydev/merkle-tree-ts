@@ -1,3 +1,7 @@
-myRepo:
-  gitProvider: github_amirylm 
+gitRepo:
+  provider: github_amirylm 
   path: amirylm/merkle-tree
+
+artiRepo:
+  integration: arti
+  name: npm-virtual

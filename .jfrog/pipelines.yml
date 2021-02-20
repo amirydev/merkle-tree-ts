@@ -5,15 +5,15 @@ resources:
   - name: my_repo
     type: GitRepo
     configuration:
-      gitProvider: {{ .Values.myRepo.gitProvider }}
-      path: {{ .Values.myRepo.path }}
+      gitProvider: {{ .Values.gitRepo.provider }}
+      path: {{ .Values.gitRepo.path }}
       branches:
         include: main
 
   - name: npm_buildinfo
     type: BuildInfo
     configuration:
-      sourceArtifactory: arti
+      sourceArtifactory: {{ .Values.artiRepo.integration }}
 
 pipelines:
   - name: npm_pipeline
@@ -21,10 +21,10 @@ pipelines:
       - name: npm_build_step
         type: NpmBuild
         configuration:
-          repositoryName: npm-virtual
+          repositoryName: {{ .Values.artiRepo.name }}
           sourceLocation: . 
           integrations:
-            - name:  arti
+            - name:  {{ .Values.artiRepo.integration }}
           inputResources:
             - name: my_repo
       - name: npm_test_step
@@ -35,15 +35,16 @@ pipelines:
             - name: my_repo
         execution:
           onExecute:
-            - echo "running tests.."
+            - npm run format
+            - npm run lint
             - npm run test
       - name: npm_publish_step
         type: NpmPublish
         configuration:
-          repositoryName: npm-virtual
+          repositoryName: {{ .Values.artiRepo.name }}
           autoPublishBuildInfo: true
           integrations:
-            - name: arti
+            - name: {{ .Values.artiRepo.integration }}
           inputSteps:
             - name: npm_build_step
           outputResources:
