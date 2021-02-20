@@ -1,4 +1,4 @@
-import { MerkleTree, Proof } from './merkle-tree';
+import { MerkleTree, Proof } from '.';
 import hasher from 'crypto-js/sha3';
 import encoder from 'crypto-js/enc-base64';
 
