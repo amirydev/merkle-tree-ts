@@ -10,10 +10,10 @@ resources:
       branches:
         include: main
 
-  - name: npm_buildinfo
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: {{ .Values.artiRepo.integration }}
+#  - name: npm_buildinfo
+#    type: BuildInfo
+#    configuration:
+#      sourceArtifactory: {{ .Values.artiRepo.integration }}
 
 pipelines:
   - name: npm_pipeline
@@ -38,14 +38,14 @@ pipelines:
             - npm run format
             - npm run lint
             - npm run test
-      - name: npm_publish_step
-        type: NpmPublish
-        configuration:
-          repositoryName: {{ .Values.artiRepo.name }}
-          autoPublishBuildInfo: true
-          integrations:
-            - name: {{ .Values.artiRepo.integration }}
-          inputSteps:
-            - name: npm_build_step
-          outputResources:
-            - name: npm_buildinfo
+   #   - name: npm_publish_step
+   #     type: NpmPublish
+   #     configuration:
+   #       repositoryName: {{ .Values.artiRepo.name }}
+   #       autoPublishBuildInfo: true
+   #       integrations:
+   #         - name: {{ .Values.artiRepo.integration }}
+   #       inputSteps:
+   #         - name: npm_build_step
+   #       outputResources:
+   #         - name: npm_buildinfo
