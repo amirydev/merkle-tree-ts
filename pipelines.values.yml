@@ -1,6 +1,6 @@
 gitRepo:
-  provider: github_amirylm 
-  path: amirylm/merkle-tree-ts
+  provider: github_aydev 
+  path: amirydev/merkle-tree-ts
 
 artiRepo:
   integration: arti
