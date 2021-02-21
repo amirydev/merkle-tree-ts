@@ -21,10 +21,10 @@ pipelines:
       - name: npm_build_step
         type: NpmBuild
         configuration:
-          #repositoryName: {{ .Values.artiRepo.name }}
+          repositoryName: {{ .Values.artiRepo.name }}
           sourceLocation: . 
-         # integrations:
-         #   - name:  {{ .Values.artiRepo.integration }}
+          integrations:
+            - name:  {{ .Values.artiRepo.integration }}
           inputResources:
             - name: my_repo
       - name: npm_test_step
