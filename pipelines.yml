@@ -42,6 +42,7 @@ pipelines:
             - npm run format
             - npm run lint
             - npm run test
+
       - name: npm_publish_step
         type: NpmPublish
         configuration:
