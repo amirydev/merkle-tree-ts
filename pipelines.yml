@@ -2,7 +2,7 @@ template: true
 valuesFilePath: ./pipelines.values.yml
 
 resources:
-  - name: my_repo
+  - name: gitRepo
     type: GitRepo
     configuration:
       gitProvider: {{ .Values.gitRepo.provider }}
@@ -26,17 +26,17 @@ pipelines:
           integrations:
             - name:  {{ .Values.artiRepo.integration }}
           inputResources:
-            - name: my_repo
+            - name: gitRepo
 
       - name: npm_test_step
         type: Bash
         configuration:
           inputResources:
-            - name: my_repo
+            - name: gitRepo
         execution:
           onStart:
-            - cd $res_microGit_resourcePath/micro
-            - jfrog rt npm-config --server-id-resolve entArt --repo-resolve npm-virtual
+            - cd $res_gitRepo_resourcePath
+#            - jfrog rt npm-config --server-id-resolve arti --repo-resolve npm-virtual
             - jfrog rt npm-install
           onExecute:
             - npm run format
