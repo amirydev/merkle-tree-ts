@@ -31,7 +31,6 @@ pipelines:
       - name: npm_test_step
         type: Bash
         configuration:
-#          sourceLocation: .
           inputResources:
             - name: my_repo
         execution:
