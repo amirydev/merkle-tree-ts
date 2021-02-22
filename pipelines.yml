@@ -10,10 +10,10 @@ resources:
       branches:
         include: main
 
-#  - name: npm_buildinfo
-#    type: BuildInfo
-#    configuration:
-#      sourceArtifactory: {{ .Values.artiRepo.integration }}
+  - name: npm_buildinfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.artiRepo.integration }}
 
 pipelines:
   - name: npm_pipeline
@@ -27,6 +27,7 @@ pipelines:
             - name:  {{ .Values.artiRepo.integration }}
           inputResources:
             - name: my_repo
+
       - name: npm_test_step
         type: Bash
         configuration:
@@ -34,18 +35,22 @@ pipelines:
           inputResources:
             - name: my_repo
         execution:
+          onStart:
+            - cd $res_microGit_resourcePath/micro
+            - jfrog rt npm-config --server-id-resolve entArt --repo-resolve npm-virtual
+            - jfrog rt npm-install
           onExecute:
             - npm run format
             - npm run lint
             - npm run test
-   #   - name: npm_publish_step
-   #     type: NpmPublish
-   #     configuration:
-   #       repositoryName: {{ .Values.artiRepo.name }}
-   #       autoPublishBuildInfo: true
-   #       integrations:
-   #         - name: {{ .Values.artiRepo.integration }}
-   #       inputSteps:
-   #         - name: npm_build_step
-   #       outputResources:
-   #         - name: npm_buildinfo
+      - name: npm_publish_step
+        type: NpmPublish
+        configuration:
+          repositoryName: {{ .Values.artiRepo.name }}
+          autoPublishBuildInfo: true
+          integrations:
+            - name: {{ .Values.artiRepo.integration }}
+          inputSteps:
+            - name: npm_build_step
+          outputResources:
+            - name: npm_buildinfo
