@@ -1,6 +1,6 @@
 {
   "name": "merkle-tree-ts",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "a simple typescript module for working with merkle trees",
   "main": "./lib/cjs/index.js",
   "scripts": {
