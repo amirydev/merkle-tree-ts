@@ -8,12 +8,6 @@ Multiple hash functions and encoding are supported because the interfaces are ba
 
 ## Install
 
-**will be available in npm soon**
-
-```bash
-npm i merkle-tree-ts
-```
-
 From github: `npm i https://github.com/amirylm/merkle-tree`
 
 ## Usage
